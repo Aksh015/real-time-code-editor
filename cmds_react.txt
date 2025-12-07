@@ -1,0 +1,6 @@
+npm start
+npm install react-router-dom
+npm install uuid
+npm install react-hot-toast
+npm install react-avatar
+npm install codemirror
