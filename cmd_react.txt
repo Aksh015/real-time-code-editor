@@ -1,0 +1,43 @@
+"start:front": "react-scripts start",
+"start": "npm run build && npm run server:prod",
+"build": "react-scripts build",
+
+"server:dev": "nodemon server.js",
+"server:prod": "node server.js",
+
+npm run start:front  -->react on 3000
+npm run build --> make static file of react (no server runs)
+npm run server:prod --> express + socket on 5000 (express will also serve build folder)
+npm run server:dev --> nodemon (every change on backend gets reflected)
+
+DEV → start:front + server:dev
+PROD → build + server:prod
+
+npm start   --> react + express + socket --> on 5000
+
+
+npm install react-router-dom
+npm install uuid
+npm install react-hot-toast
+npm install react-avatar
+npm install codemirror
+
+server :
+npm i express
+npm install -g nodemon
+npm i socket.io socket.io-client
+
+Proxy lets React talk to backend as if they are on the same server.
+let, port 3000(react) uses proxy 5000(backend)
+if req is for api/users on 3000
+    if 3000/api/users does not exist
+        than go for 5000/api/users
+        remove cors issues
+
+
+in express :
+    npm i dotenv --> needed
+in react :
+    prefix must be : REACT_APP_
+    as react runs in browser at user side 
+    user/client can see all environment variables used by using browser dev tools
