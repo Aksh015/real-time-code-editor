@@ -34,7 +34,7 @@ function Editor({socketRef,roomId,onCodeChange}) {
                     })
                 }
             })
-            
+            // we can't keep this permanant
             // editorRef.current.setValue('This is Real Time Code editor of AKSH PATEL 😃')//this text will be seen by default initially
         }
         init()

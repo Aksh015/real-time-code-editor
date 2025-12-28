@@ -1,88 +1,52 @@
-import React, { useState } from 'react';
-import { v4 as uuidV4 } from 'uuid';
+import React, { useState } from 'react'
+import {v4 as uuidv4} from "uuid"
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
-const Home = () => {
-    const navigate = useNavigate();
+function Home() {
+  const navigate = useNavigate()
+  const [roomId,setRoomId] = useState('')
+  const [username, setUsername] = useState('');
+  function createNewRoom(e){
+    e.preventDefault() //stops reload of page
+    const id = uuidv4()
+    setRoomId(id)
 
-    const [roomId, setRoomId] = useState('');
-    const [username, setUsername] = useState('');
-    const createNewRoom = (e) => {
-        e.preventDefault();
-        const id = uuidV4();
-        setRoomId(id);
-        toast.success('Created a new room');
-    };
+    toast.success("Created New Room")
+    // toast.error("Something went wrong");
+  }
+  function joinRoom(e){
+      if (!roomId || !username) {
+          toast.error('ROOM ID & username is required');
+          return;
+      }
+      navigate(`/editor/${roomId}`,{
+        state:{username,roomId}//passing data bw 2 routes
+      })
+  }
+  function handleInputEnter(e){
+      if (e.code === 'Enter')  joinRoom();
+  };
 
-    const joinRoom = () => {
-        if (!roomId || !username) {
-            toast.error('ROOM ID & username is required');
-            return;
-        }
-
-        // Redirect
-        navigate(`/editor/${roomId}`, {
-            state: {
-                username,
-            },
-        });
-    };
-
-    const handleInputEnter = (e) => {
-        if (e.code === 'Enter') {
-            joinRoom();
-        }
-    };
-    return (
-        <div className="homePageWrapper">
-            <div className="formWrapper">
-                <img
-                    className="homePageLogo"
-                    src="/code-sync.png"
-                    alt="code-sync-logo"
-                />
-                <h4 className="mainLabel">Paste invitation ROOM ID</h4>
-                <div className="inputGroup">
-                    <input
-                        type="text"
-                        className="inputBox"
-                        placeholder="ROOM ID"
-                        onChange={(e) => setRoomId(e.target.value)}
-                        value={roomId}
-                        onKeyUp={handleInputEnter}
-                    />
-                    <input
-                        type="text"
-                        className="inputBox"
-                        placeholder="USERNAME"
-                        onChange={(e) => setUsername(e.target.value)}
-                        value={username}
-                        onKeyUp={handleInputEnter}
-                    />
-                    <button className="btn joinBtn" onClick={joinRoom}>
-                        Join
-                    </button>
-                    <span className="createInfo">
-                        If you don't have an invite then create &nbsp;
-                        <a
-                            onClick={createNewRoom}
-                            href=""
-                            className="createNewBtn"
-                        >
-                            new room
-                        </a>
-                    </span>
-                </div>
-            </div>
-            <footer>
-                <h4>
-                    Built with 💛 &nbsp; by &nbsp;
-                    <a href="https://github.com/codersgyan">Coder's Gyan</a>
-                </h4>
-            </footer>
+  return (
+    <div className='homePageWrapper'>
+        <div className='formWrapper'>
+          <img className='homePageLogo' src='/code-sync.png' alt="unable to load image"></img>
+          <h4 className='mainLabel'>Paste Invitation Room Id </h4>
+          <div className='inputGroup'>
+            <input type='text' className='inputBox' placeholder='ROOM ID' value={roomId} onChange={(e)=>setRoomId(e.target.value)} onKeyUp={handleInputEnter}></input>
+            <input type='text' className='inputBox' placeholder='USER NAME' value={username} onChange={(e)=>setUsername(e.target.value)} onKeyUp={handleInputEnter}></input>
+            <button className='btn joinBtn' onClick={joinRoom}>Join</button>
+           
+            <span className='createInfo'>If you don't have an invite then create &nbsp;
+              <a onClick={createNewRoom} href='' className='createNewBtn'>new room</a>
+            </span>
+          </div>
         </div>
-    );
-};
+        <footer>
+          <h4>Built with 💛&nbsp; by &nbsp;<a href='https://github.com/Aksh015'>Aksh Patel</a></h4>
+        </footer>
+    </div>) 
+}
 
-export default Home;
+export default Home
